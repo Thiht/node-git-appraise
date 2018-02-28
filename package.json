@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/Thiht/node-git-appraise#readme",
   "devDependencies": {
+    "@types/node": "^8.9.4",
     "husky": "^0.14.3",
     "lint-staged": "^7.0.0",
     "prettier": "1.11.0",
