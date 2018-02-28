@@ -1,0 +1,33 @@
+{
+  "name": "git-appraise",
+  "version": "1.0.0",
+  "description": "Wrapper around git-appraise",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "precommit": "lint-staged",
+    "prepublish": "npm run build",
+    "build": "tsc"
+  },
+  "lint-staged": {
+    "*.{ts,json,css,md}": ["prettier --write", "git add"]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Thiht/node-git-appraise.git"
+  },
+  "author": "Thibaut Rousseau",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Thiht/node-git-appraise/issues"
+  },
+  "homepage": "https://github.com/Thiht/node-git-appraise#readme",
+  "devDependencies": {
+    "husky": "^0.14.3",
+    "lint-staged": "^7.0.0",
+    "prettier": "1.11.0",
+    "tslint": "^5.9.1",
+    "tslint-config-prettier": "^1.9.0",
+    "typescript": "^2.7.2"
+  }
+}
