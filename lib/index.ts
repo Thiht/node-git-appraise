@@ -16,6 +16,16 @@ export class GitAppraise {
     this.workingDirectory = directory
   }
 
+  // Wrapper around `git-appraise abandon`
+  public abandon(commit: string, message?: string) {
+    const args = ["abandon"]
+    if (message) {
+      args.push("-m", message)
+    }
+    args.push(commit)
+    this.run(args)
+  }
+
   // Wrapper around `git-appraise accept`
   public accept(commit: string, message?: string) {
     const args = ["accept"]
