@@ -1,6 +1,16 @@
 import { spawnSync } from "child_process"
 import { cwd } from "process"
 
+export enum CommentStatus {
+  ForYourInformation,
+  LooksGoodToMe,
+  NeedsMoreWork,
+}
+
+export interface ICommentOptions {
+  status: CommentStatus
+}
+
 export interface IRequestOptions {
   allowUncommited: boolean
   message: string
@@ -41,6 +51,32 @@ export class GitAppraise {
       args.push("-m", message)
     }
     args.push(commit)
+    this.run(args)
+  }
+
+  // Wrapper around `git-appraise comment`
+  public comment(
+    reviewHash: string,
+    message: string,
+    options: ICommentOptions = {
+      status: CommentStatus.ForYourInformation,
+    },
+  ) {
+    if (message === "") {
+      throw new Error("Message must not be empty")
+    }
+
+    const args = ["comment", "-m", message, reviewHash]
+    switch (options.status) {
+      case CommentStatus.LooksGoodToMe:
+        args.push("-lgtm")
+        break
+      case CommentStatus.NeedsMoreWork:
+        args.push("-nmw")
+        break
+      default:
+        break
+    }
     this.run(args)
   }
 
