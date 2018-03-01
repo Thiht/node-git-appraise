@@ -1,6 +1,14 @@
 import { spawnSync } from "child_process"
 import { cwd } from "process"
 
+export interface IRequestOptions {
+  allowUncommited: boolean
+  message: string
+  reviewers: string[]
+  source: string
+  target: string
+}
+
 export class GitAppraise {
   private command = "git-appraise"
   private workingDirectory: string = cwd()
@@ -66,6 +74,37 @@ export class GitAppraise {
       args.push("-m", message)
     }
     args.push(commit)
+    this.run(args)
+  }
+
+  // Wrapper around `git-appraise request`
+  public request(
+    reviewHash: string,
+    options: IRequestOptions = {
+      allowUncommited: false,
+      message: "",
+      reviewers: [],
+      source: "HEAD",
+      target: "refs/heads/master",
+    },
+  ) {
+    const args = [
+      "request",
+      "-source",
+      options.source,
+      "-target",
+      options.target,
+    ]
+    if (options.allowUncommited) {
+      args.push("-allow-uncommitted")
+    }
+    if (options.message !== "") {
+      args.push("-m", options.message)
+    }
+    if (options.reviewers.length > 0) {
+      args.push("-r", options.reviewers.join(","))
+    }
+    args.push(reviewHash)
     this.run(args)
   }
 
