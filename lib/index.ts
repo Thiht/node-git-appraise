@@ -131,12 +131,11 @@ export class GitAppraise {
       options.source,
       "-target",
       options.target,
+      "-m",
+      options.message,
     ]
     if (options.allowUncommited) {
       args.push("-allow-uncommitted")
-    }
-    if (options.message !== "") {
-      args.push("-m", options.message)
     }
     if (options.reviewers.length > 0) {
       args.push("-r", options.reviewers.join(","))
