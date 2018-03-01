@@ -25,12 +25,12 @@ export class GitAppraise {
   }
 
   // Wrapper around `git-appraise abandon`
-  public abandon(commit: string, message?: string) {
-    const args = ["abandon"]
-    if (message) {
-      args.push("-m", message)
+  public abandon(commit: string, message: string) {
+    if (message === "") {
+      throw new Error("Message must not be empty")
     }
-    args.push(commit)
+
+    const args = ["abandon", "-m", message, commit]
     this.run(args)
   }
 
@@ -68,13 +68,13 @@ export class GitAppraise {
     this.run(args)
   }
 
-  // Wrapper around `git-appraise commit`
-  public reject(commit: string, message?: string) {
-    const args = ["reject"]
-    if (message) {
-      args.push("-m", message)
+  // Wrapper around `git-appraise reject`
+  public reject(commit: string, message: string) {
+    if (message === "") {
+      throw new Error("Message must not be empty")
     }
-    args.push(commit)
+
+    const args = ["reject", "-m", message, commit]
     this.run(args)
   }
 
