@@ -52,7 +52,8 @@ export class GitAppraise {
     if (all) {
       args.push("-a")
     }
-    this.run(args)
+    const ret = this.run(args)
+    return JSON.parse(ret.stdout.toString())
   }
 
   // Wrapper around `git-appraise pull`
@@ -111,13 +112,15 @@ export class GitAppraise {
   // Wrapper around `git-appraise show`
   public show(commit: string) {
     const args = ["show", "-json", commit]
-    this.run(args)
+    const ret = this.run(args)
+    return JSON.parse(ret.stdout.toString())
   }
 
   // Wrapper around `git-appraise show -diff`
   public showDiff(commit: string) {
     const args = ["show", "-diff", commit]
-    this.run(args)
+    const ret = this.run(args)
+    return ret.stdout.toString()
   }
 
   private run(args: string[]) {
