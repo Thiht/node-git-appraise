@@ -108,6 +108,18 @@ export class GitAppraise {
     this.run(args)
   }
 
+  // Wrapper around `git-appraise show`
+  public show(commit: string) {
+    const args = ["show", "-json", commit]
+    this.run(args)
+  }
+
+  // Wrapper around `git-appraise show -diff`
+  public showDiff(commit: string) {
+    const args = ["show", "-diff", commit]
+    this.run(args)
+  }
+
   private run(args: string[]) {
     return spawnSync(this.command, args, {
       cwd: this.workingDirectory,
