@@ -1,5 +1,6 @@
 import { spawnSync } from "child_process"
 import { cwd } from "process"
+import * as which from "which"
 
 export enum CommentStatus {
   ForYourInformation,
@@ -159,6 +160,9 @@ export class GitAppraise {
   }
 
   private run(args: string[]) {
+    if (which.sync(this.command, { nothrow: true }) === null) {
+      throw new Error(`Executable ${this.command} not found`)
+    }
     return spawnSync(this.command, args, {
       cwd: this.workingDirectory,
     })
