@@ -9,6 +9,11 @@ export enum CommentStatus {
 }
 
 export interface ICommentOptions {
+  file?: {
+    path: string
+    range?: number | [number, number]
+  }
+  parentComment?: string
   status: CommentStatus
 }
 
@@ -68,6 +73,18 @@ export class GitAppraise {
     }
 
     const args = ["comment", "-m", message, reviewHash]
+
+    if (options.file) {
+      args.push("-f", options.file.path)
+      if (options.file.range) {
+        const range =
+          options.file.range instanceof Array
+            ? options.file.range.join(":")
+            : options.file.range.toString()
+        args.push("-l", range)
+      }
+    }
+
     switch (options.status) {
       case CommentStatus.LooksGoodToMe:
         args.push("-lgtm")
@@ -78,6 +95,11 @@ export class GitAppraise {
       default:
         break
     }
+
+    if (options.parentComment) {
+      args.push("-p", options.parentComment)
+    }
+
     this.run(args)
   }
 
