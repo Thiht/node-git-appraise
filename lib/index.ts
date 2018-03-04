@@ -137,6 +137,12 @@ export class GitAppraise {
     this.run(args)
   }
 
+  // Wrapper around `git-appraise rebase`
+  public rebase(reviewHash: string) {
+    const args = ["rebase", reviewHash]
+    this.run(args)
+  }
+
   // Wrapper around `git-appraise request`
   public request(
     reviewHash: string,
