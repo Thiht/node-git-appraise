@@ -4,6 +4,7 @@
   "description": "Wrapper around git-appraise",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "keywords": ["code-review", "git", "git-appraise", "nodejs", "typescript"],
   "scripts": {
     "precommit": "lint-staged",
     "prepublish": "npm run build",
