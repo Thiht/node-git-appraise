@@ -2,6 +2,54 @@ import { spawnSync } from "child_process"
 import { cwd } from "process"
 import * as which from "which"
 
+export interface IComment {
+  timestamp?: string
+  author?: string
+  original?: string
+  parent?: string
+  location?: {
+    commit?: string
+    path?: string
+    range?: {
+      startLine: number
+      startColumn?: number
+      endLine?: number
+      endColumn?: number
+    }
+  }
+  description?: string
+  resolved?: boolean
+  v?: number
+}
+
+export interface ICommentThread {
+  hash?: string
+  comment: IComment
+  original?: IComment
+  edits?: IComment[]
+  children?: ICommentThread[]
+  resolved?: boolean
+  edited?: boolean
+}
+
+export interface IReview {
+  revision: string
+  request: {
+    timestamp?: string
+    reviewRef?: string
+    targetRef: string
+    requester?: string
+    reviewers?: string[]
+    description?: string
+    v?: number
+    baseCommit?: string
+    alias?: string
+  }
+  comments?: ICommentThread[]
+  resolved?: boolean
+  Submitted: boolean
+}
+
 export enum CommentStatus {
   ForYourInformation,
   LooksGoodToMe,
@@ -106,7 +154,7 @@ export class GitAppraise {
   // Wrapper around `git-appraise list`
   // By default, lists only the open reviews
   // The `all` parameter allows to list all the reviews, including the closed ones
-  public list(all = false) {
+  public list(all = false): IReview {
     const args = ["list", "-json"]
     if (all) {
       args.push("-a")
