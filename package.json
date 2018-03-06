@@ -1,17 +1,26 @@
 {
   "name": "git-appraise",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Wrapper around git-appraise",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "keywords": ["code-review", "git", "git-appraise", "nodejs", "typescript"],
+  "keywords": [
+    "code-review",
+    "git",
+    "git-appraise",
+    "nodejs",
+    "typescript"
+  ],
   "scripts": {
     "precommit": "lint-staged",
     "prepare": "npm run build",
     "build": "tsc"
   },
   "lint-staged": {
-    "*.{ts,json,css,md}": ["prettier --write", "git add"]
+    "*.{ts,json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
