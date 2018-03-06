@@ -154,7 +154,7 @@ export class GitAppraise {
   // Wrapper around `git-appraise list`
   // By default, lists only the open reviews
   // The `all` parameter allows to list all the reviews, including the closed ones
-  public list(all = false): IReview {
+  public list(all = false): IReview[] {
     const args = ["list", "-json"]
     if (all) {
       args.push("-a")
