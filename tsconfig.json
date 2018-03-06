@@ -7,10 +7,11 @@
     "sourceMap": true,
     "rootDir": "lib",
     "strict": true,
+    "declaration": true,
     "noUnusedLocals": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "noUnusedParameters": true
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist"]
 }
