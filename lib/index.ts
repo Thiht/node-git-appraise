@@ -47,7 +47,7 @@ export interface IReview {
   }
   comments?: ICommentThread[]
   resolved?: boolean
-  Submitted: boolean
+  submitted: boolean
 }
 
 export enum CommentStatus {
